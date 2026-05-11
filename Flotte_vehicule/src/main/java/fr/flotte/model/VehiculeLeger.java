@@ -48,4 +48,12 @@ public class VehiculeLeger extends Vehicule implements Assignable, Maintenable {
     public boolean peutTransporter(int nbPersonnes) {
         return nombrePlaces >= nbPersonnes;
     }
+
+    @Override
+    public String toString() {
+        return "VehiculeLeger{" +
+                ", nombrePlaces=" + nombrePlaces +
+                ", consommationMoyenne=" + consommationMoyenne +
+                '}';
+    }
 }
