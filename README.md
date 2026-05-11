@@ -13,4 +13,4 @@ Le système intègre des fonctionnalités de statistiques, de filtrage multicrit
 L’objectif principal est d’optimiser l’organisation des déplacements, le suivi de maintenance et la gestion opérationnelle de la flotte.
 
 ## Structure du projet
-![Structure du projet](/Structure%20du%20projet.jpg)
+![Structure du projet](/Structure_du_projet.jpg)
