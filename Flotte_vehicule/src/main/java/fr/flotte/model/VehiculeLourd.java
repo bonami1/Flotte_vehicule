@@ -17,8 +17,14 @@ public class VehiculeLourd extends Vehicule implements Assignable, Maintenable {
 
     /*@Override
     public void assigner(Mission mission) {
+    if (!estDisponible()) {
+        throw new VehiculeIndisponibleException(
+            "Le véhicule est indisponible"
+        );
+    } else {
         ajouterMission(mission);
         setEtat(EtatVehicule.UTILISE);
+        }
     }*/
 
     @Override
@@ -37,8 +43,14 @@ public class VehiculeLourd extends Vehicule implements Assignable, Maintenable {
         setEtat(EtatVehicule.EN_MAINTENANCE);
     }*/
 
-    public boolean verifierCharge(double poids) {
-         return poids <= capaciteCharge;
+    public boolean verifierCharge(double poids) throws CapaciteDepasseeException {
+        if (poids > capaciteCharge) {
+            throw new CapaciteDepasseeException(
+                    "Poids trop élevé pour ce véhicule"
+            );
+        } else {
+            return poids <= capaciteCharge;
+        }
     }
 
     public double calculerUsure() {

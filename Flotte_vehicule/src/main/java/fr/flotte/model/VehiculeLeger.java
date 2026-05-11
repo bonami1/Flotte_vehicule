@@ -21,8 +21,14 @@ public class VehiculeLeger extends Vehicule implements Assignable, Maintenable {
 
     /*@Override
     public void assigner(Mission mission) {
+    if (!estDisponible()) {
+        throw new VehiculeIndisponibleException(
+            "Le véhicule est indisponible"
+        );
+    } else {
         ajouterMission(mission);
         setEtat(EtatVehicule.UTILISE);
+        }
     }*/
 
     @Override

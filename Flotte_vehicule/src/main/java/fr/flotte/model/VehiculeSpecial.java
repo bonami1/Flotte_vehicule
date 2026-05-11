@@ -21,12 +21,18 @@ public class VehiculeSpecial extends Vehicule implements Assignable, Maintenable
 
     /*@Override
     public void assigner(Mission mission) {
-        ajouterMission(mission);
-        setEtat(EtatVehicule.UTILISE);
+        if (!estDisponible()) {
+            throw new VehiculeIndisponibleException(
+                "Le véhicule est indisponible"
+            );
+        } else {
+            ajouterMission(mission);
+            setEtat(EtatVehicule.UTILISE);
 
-        if (mission.urgence()) {
-        activerUrgence();
-    }
+            if (mission.urgence()) {
+                activerUrgence();
+            }
+        }
     }*/
 
     @Override
