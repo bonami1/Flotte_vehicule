@@ -11,3 +11,6 @@ L’application assure le suivi des véhicules (immatriculation, état, kilomét
 Elle permet également de créer et d’affecter des missions en fonction des ressources disponibles et du type de trajet.
 Le système intègre des fonctionnalités de statistiques, de filtrage multicritères et de persistance des données via sérialisation ou fichiers CSV.
 L’objectif principal est d’optimiser l’organisation des déplacements, le suivi de maintenance et la gestion opérationnelle de la flotte.
+
+## Structure du projet
+![Structure du projet](/Structure%20du%20projet.jpg)
