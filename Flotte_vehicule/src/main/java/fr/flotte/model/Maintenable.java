@@ -6,4 +6,5 @@ public interface Maintenable {
     boolean estEnMaintenance();
     void signalerIncident(Incident incident);
     List<Incident> getHistoriqueIncidents();
+    void effectuerMaintenance();
 }
