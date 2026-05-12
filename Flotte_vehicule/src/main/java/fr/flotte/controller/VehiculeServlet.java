@@ -88,7 +88,7 @@ public class VehiculeServlet extends HttpServlet {
                              HttpServletResponse resp)
             throws ServletException, IOException {
 
-        List<Vehicule> resultats = registre.getTous();
+        List<Vehicule> resultats = registre.listerTous();
 
         req.setAttribute("vehicules", resultats);
         req.setAttribute("etats", EtatVehicule.values());

@@ -1,5 +1,7 @@
 package fr.flotte.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class VehiculeLeger extends Vehicule implements Assignable, Maintenable {
@@ -41,11 +43,20 @@ public class VehiculeLeger extends Vehicule implements Assignable, Maintenable {
         setEtat(EtatVehicule.EN_MAINTENANCE);
     };
 
-    /*@Override
+    @Override
+    public boolean estEnMaintenance() {
+        return getEtat() == EtatVehicule.EN_MAINTENANCE;
+    }
+
+    @Override
     public void signalerIncident(Incident incident) {
-        ajouterIncident(incident);
         setEtat(EtatVehicule.EN_MAINTENANCE);
-    }*/
+    }
+
+    @Override
+    public List<Incident> getHistoriqueIncidents() {
+        return new ArrayList<>();
+    }
 
     public double calculerConsommation(double distance) {
         return (consommationMoyenne * distance) / 100;

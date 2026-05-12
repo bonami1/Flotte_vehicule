@@ -2,6 +2,9 @@ package fr.flotte.controller;
 
 import fr.flotte.model.GestionnaireOperationnel;
 import fr.flotte.model.GestionnaireMaintenance;
+import fr.flotte.model.RegistreVehicule;
+import fr.flotte.model.EtatVehicule;
+import fr.flotte.model.Vehicule;
 import fr.flotte.model.Mission;
 import fr.flotte.util.PersistanceUtil;
 
@@ -17,6 +20,7 @@ public class StatistiquesServlet extends HttpServlet {
 
     private GestionnaireOperationnel<Mission> gestionnaire;
     private GestionnaireMaintenance gestionnaireMaintenance;
+    private RegistreVehicule<Vehicule> registre;
 
     @Override
     public void init() {
@@ -26,6 +30,7 @@ public class StatistiquesServlet extends HttpServlet {
             GestionnaireMaintenance.setInstance(charge);
         }
         gestionnaireMaintenance = GestionnaireMaintenance.getInstance();
+        registre = RegistreVehicule.getInstance();
     }
 
     @Override
@@ -53,6 +58,17 @@ public class StatistiquesServlet extends HttpServlet {
         request.setAttribute("coutMoyen",
                 String.format("%.2f", gestionnaireMaintenance.coutMoyen()));
         request.setAttribute("statsIncidentsParType", gestionnaireMaintenance.statistiquesParType());
+
+        // Véhicules
+        request.setAttribute("totalVehicules",      registre.listerTous().size());
+        request.setAttribute("nbVehiculesDispos",   registre.compterParEtat(EtatVehicule.DISPONIBLE));
+        request.setAttribute("nbVehiculesUtilises", registre.compterParEtat(EtatVehicule.UTILISE));
+        request.setAttribute("nbVehiculesMaintenance", registre.compterParEtat(EtatVehicule.EN_MAINTENANCE));
+        request.setAttribute("kmMoyen",
+                String.format("%.0f", registre.kilometrageMoyen()));
+        request.setAttribute("repartitionMarques",  registre.repartitionParMarque());
+        registre.vehiculeAvecPlusHautKilometrage()
+                .ifPresent(v -> request.setAttribute("vehiculeKmMax", v));
 
         request.getRequestDispatcher("/statistiques.jsp").forward(request, response);
     }
