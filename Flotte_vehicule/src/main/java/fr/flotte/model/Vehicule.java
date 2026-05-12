@@ -43,12 +43,9 @@ public abstract class Vehicule {
     public void setEtat(EtatVehicule etat) { this.etat = etat; }
 
 
-    /*public double calculerCoutMaintenance() {
-        return historiqueIncidents.stream()
-                .mapToDouble(Incident::getCout)
-                .sum();
-        // Parcourir la liste d'incidents d'un vehicule et les additionner
-    };*/
+    public double calculerCoutMaintenance() {
+        return 0.0;
+    }
 
     /*public void ajouterIncident(Incident incident) {
         historiqueIncidents.add(incident);

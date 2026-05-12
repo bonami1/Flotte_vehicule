@@ -81,13 +81,18 @@ public class RegistreVehicule<T extends Vehicule> {
     public enum ColonneTri { IMMATRICULATION, MARQUE, MODELE, KILOMETRAGE, ETAT }
 
     public List<T> trier(ColonneTri colonne, boolean ascendant) {
-        Comparator<T> comp = switch (colonne) {
-            case IMMATRICULATION -> Comparator.comparing(Vehicule::getImmatriculation);
-            case MARQUE          -> Comparator.comparing(Vehicule::getMarque);
-            case MODELE          -> Comparator.comparing(Vehicule::getModele);
-            case KILOMETRAGE     -> Comparator.comparingDouble(Vehicule::getKilometrage);
-            case ETAT            -> Comparator.comparing(v -> v.getEtat().name());
-        };
+        Comparator<T> comp;
+        if (colonne == ColonneTri.IMMATRICULATION) {
+            comp = Comparator.comparing(Vehicule::getImmatriculation);
+        } else if (colonne == ColonneTri.MARQUE) {
+            comp = Comparator.comparing(Vehicule::getMarque);
+        } else if (colonne == ColonneTri.MODELE) {
+            comp = Comparator.comparing(Vehicule::getModele);
+        } else if (colonne == ColonneTri.KILOMETRAGE) {
+            comp = Comparator.comparingDouble(Vehicule::getKilometrage);
+        } else {
+            comp = Comparator.comparing(v -> v.getEtat().name());
+        }
         if (!ascendant) comp = comp.reversed();
         return vehicules.stream().sorted(comp).collect(Collectors.toList());
     }

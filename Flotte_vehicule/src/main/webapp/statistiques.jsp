@@ -91,6 +91,79 @@
 
     </div>
 
+    <%-- Section véhicules --%>
+    <h4 class="mb-3 mt-2">Véhicules</h4>
+
+    <div class="row mb-4">
+
+        <div class="col-md-3 mb-3">
+            <div class="card text-center border-primary">
+                <div class="card-body">
+                    <h3 class="text-primary">${totalVehicules}</h3>
+                    <p class="mb-0">Véhicules au total</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card text-center border-success">
+                <div class="card-body">
+                    <h3 class="text-success">${nbVehiculesDispos}</h3>
+                    <p class="mb-0">Disponibles</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card text-center border-warning">
+                <div class="card-body">
+                    <h3 class="text-warning">${nbVehiculesUtilises}</h3>
+                    <p class="mb-0">En mission</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card text-center border-danger">
+                <div class="card-body">
+                    <h3 class="text-danger">${nbVehiculesMaintenance}</h3>
+                    <p class="mb-0">En maintenance</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mb-5">
+
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">Répartition par marque</div>
+                <div class="card-body">
+                    <canvas id="graphMarques" style="max-height: 250px;"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">Disponibilité des véhicules</div>
+                <div class="card-body">
+                    <canvas id="graphVehiculesEtat" style="max-height: 250px;"></canvas>
+                </div>
+                <c:if test="${not empty vehiculeKmMax}">
+                    <div class="card-footer text-muted" style="font-size:0.85rem">
+                        Kilométrage moyen : <strong>${kmMoyen} km</strong>
+                        &nbsp;|&nbsp;
+                        Plus haut km : <strong>${vehiculeKmMax.immatriculation}</strong>
+                        (${vehiculeKmMax.kilometrage} km)
+                    </div>
+                </c:if>
+            </div>
+        </div>
+
+    </div>
+
     <%-- Section incidents --%>
     <h4 class="mb-3 mt-2">Incidents &amp; Maintenance</h4>
 
@@ -183,6 +256,30 @@
             scales: {
                 y: { beginAtZero: true }
             }
+        }
+    });
+
+    new Chart(document.getElementById('graphMarques'), {
+        type: 'bar',
+        data: {
+            labels: [<c:forEach var="entry" items="${repartitionMarques}" varStatus="s">'${entry.key}'<c:if test="${!s.last}">,</c:if></c:forEach>],
+            datasets: [{
+                label: 'Nombre de véhicules',
+                data: [<c:forEach var="entry" items="${repartitionMarques}" varStatus="s">${entry.value}<c:if test="${!s.last}">,</c:if></c:forEach>],
+                backgroundColor: '#0d6efd'
+            }]
+        },
+        options: { scales: { y: { beginAtZero: true } } }
+    });
+
+    new Chart(document.getElementById('graphVehiculesEtat'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Disponibles', 'En mission', 'En maintenance'],
+            datasets: [{
+                data: [${nbVehiculesDispos}, ${nbVehiculesUtilises}, ${nbVehiculesMaintenance}],
+                backgroundColor: ['#198754', '#ffc107', '#dc3545']
+            }]
         }
     });
 
