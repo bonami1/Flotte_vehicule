@@ -62,6 +62,7 @@ src/
 | `/home` | Page d'accueil |
 | `/missions` | Gestion des missions |
 | `/chauffeurs` | Gestion des chauffeurs |
+| `/incidents` | Gestion des incidents et maintenance |
 | `/statistiques` | Tableau de bord |
 
 ---
@@ -96,6 +97,15 @@ Nous avons choisi l'**Option B — Application web (Servlet/JSP)** pour les rais
 - Voir la disponibilité en temps réel
 - Consulter le nombre de missions effectuées
 
+### Gestion des incidents et maintenance
+- Déclarer un incident de type **Panne mécanique** (avec type de panne : moteur, freins, pneu…) ou **Accident** (avec niveau de gravité)
+- Lister tous les incidents
+- Marquer un incident comme traité
+- Supprimer un incident
+- Filtrer par type (panne / accident), par statut (traité / non traité) et par identifiant de véhicule
+- Trier par date, type, coût ou statut
+- Persistance des incidents par sérialisation Java (fichier séparé)
+
 ### Statistiques
 - Nombre total de missions, en cours, terminées
 - Répartition missions courtes / longues
@@ -107,14 +117,14 @@ Nous avons choisi l'**Option B — Application web (Servlet/JSP)** pour les rais
 - Filtrage multicritères avec `Stream` et `Predicate`
 - Tri dynamique sur plusieurs colonnes avec `Comparator`
 - Persistance des données par sérialisation Java
-- Exceptions métier custom (`ChauffeurIndisponibleException`, `MissionDejaTermineeException`)
+- Exceptions métier custom (`ChauffeurIndisponibleException`, `MissionDejaTermineeException`, `IncidentDejaTraiteException`)
 - Messages de confirmation et d'erreur après chaque action
 
 ---
 
 ## Concepts OO utilisés
 
-- **2 classes abstraites** : `Mission`, `Vehicule`
+- **Classes abstraites** : `Mission` (MissionCourte, MissionLongue), `Incident` (PanneMecanique, Accident), `Vehicule` (à venir)
 - **3 interfaces** : `Assignable`, `Trackable`, `Maintenable`
 - **Générique borné** : `GestionnaireOperationnel<T extends Mission>`
 - **Collections** : `List`, `Map`, `PriorityQueue`
