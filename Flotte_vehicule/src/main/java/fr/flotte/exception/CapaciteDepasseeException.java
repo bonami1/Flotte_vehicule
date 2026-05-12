@@ -1,4 +1,4 @@
-package fr.flotte.model;
+package fr.flotte.exception;
 
 public class CapaciteDepasseeException extends VehiculeException {
     public CapaciteDepasseeException(String message) {

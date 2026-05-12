@@ -1,4 +1,4 @@
-package fr.flotte.model;
+package fr.flotte.exception;
 
 public class VehiculeIndisponibleException extends VehiculeException {
     public VehiculeIndisponibleException(String message) {

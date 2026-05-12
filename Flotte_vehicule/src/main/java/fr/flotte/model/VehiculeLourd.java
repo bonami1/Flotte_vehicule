@@ -1,5 +1,7 @@
 package fr.flotte.model;
 
+import fr.flotte.exception.CapaciteDepasseeException;
+
 import java.util.List;
 
 public class VehiculeLourd extends Vehicule implements Assignable, Maintenable {

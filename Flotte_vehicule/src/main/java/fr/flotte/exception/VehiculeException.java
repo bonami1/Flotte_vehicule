@@ -1,4 +1,4 @@
-package fr.flotte.model;
+package fr.flotte.exception;
 
 public class VehiculeException extends Exception {
     public VehiculeException(String message) {
