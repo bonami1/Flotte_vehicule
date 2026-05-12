@@ -211,8 +211,6 @@
 <%-- ── Cartes modules ──────────────────────────────────────────── --%>
 <section class="cards-section" id="modules">
     <div class="container">
-        <h2 class="text-center fw-bold mb-2">Modules</h2>
-        <p class="text-center text-muted mb-5">Choisissez un module pour commencer</p>
 
         <div class="row g-4">
 
@@ -222,7 +220,6 @@
                     <div class="bg-img" style="background-image: url('${pageContext.request.contextPath}/assets/missions.jpg')"></div>
                     <div class="card-dim"></div>
                     <div class="card-body-custom">
-                        <div class="card-icon">&#128667;</div>
                         <div class="card-title-custom">Missions</div>
                         <div class="card-desc">Planification, affectation et suivi des missions</div>
                         <span class="badge-stat">${totalMissions} missions</span>
@@ -237,7 +234,6 @@
                     <div class="bg-img" style="background-image: url('${pageContext.request.contextPath}/assets/chauffeurs.jpg')"></div>
                     <div class="card-dim"></div>
                     <div class="card-body-custom">
-                        <div class="card-icon">&#128100;</div>
                         <div class="card-title-custom">Chauffeurs</div>
                         <div class="card-desc">Gestion des chauffeurs, permis et disponibilités</div>
                         <span class="badge-stat">${totalChauffeurs} chauffeurs</span>
@@ -252,7 +248,6 @@
                     <div class="bg-img" style="background-image: url('${pageContext.request.contextPath}/assets/statistiques.jpg')"></div>
                     <div class="card-dim"></div>
                     <div class="card-body-custom">
-                        <div class="card-icon">&#128202;</div>
                         <div class="card-title-custom">Statistiques</div>
                         <div class="card-desc">Indicateurs, taux de disponibilité et tableaux de bord</div>
                     </div>
@@ -264,9 +259,7 @@
                 <a href="${pageContext.request.contextPath}/vehicules" class="feature-card">
                     <div class="bg-img" style="background-image: url('${pageContext.request.contextPath}/assets/vehicules.jpg')"></div>
                     <div class="card-dim"></div>
-                    <span class="coming-soon">En cours de developpement</span>
                     <div class="card-body-custom">
-                        <div class="card-icon">&#128663;</div>
                         <div class="card-title-custom">Véhicules</div>
                         <div class="card-desc">Gestion du parc, immatriculations, états et kilométrages</div>
                     </div>
@@ -278,9 +271,7 @@
                 <a href="${pageContext.request.contextPath}/incidents" class="feature-card">
                     <div class="bg-img" style="background-image: url('${pageContext.request.contextPath}/assets/incidents.jpg')"></div>
                     <div class="card-dim"></div>
-                    <span class="coming-soon">En cours de developpement</span>
                     <div class="card-body-custom">
-                        <div class="card-icon">&#9888;</div>
                         <div class="card-title-custom">Incidents</div>
                         <div class="card-desc">Déclaration, suivi des incidents et maintenances</div>
                     </div>
