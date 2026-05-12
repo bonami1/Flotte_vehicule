@@ -1,13 +1,17 @@
 package fr.flotte.model;
 
 public class MissionCourte extends Mission {
+    private static final long serialVersionUID = 1L;
 
     public MissionCourte(String itineraire) {
-        super(itineraire); // On envoie l'itinéraire à la classe parente (Mission)
+        super(itineraire);
     }
 
     @Override
     public String genererRapport() {
-        return "Mission courte terminée : trajet local effectué sur " + getItineraire();
+        return "Mission courte terminee : trajet local effectue sur " + getItineraire();
     }
+
+    @Override
+    public String getType() { return "Courte"; }
 }
