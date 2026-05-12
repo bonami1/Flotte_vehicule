@@ -15,8 +15,9 @@
         <div class="navbar-nav ms-3">
             <a class="nav-link" href="${pageContext.request.contextPath}/home">Accueil</a>
             <a class="nav-link" href="${pageContext.request.contextPath}/missions">Missions</a>
-            <a class="nav-link" href="${pageContext.request.contextPath}/chauffeurs">Chauffeurs</a>
-            <a class="nav-link active" href="${pageContext.request.contextPath}/incidents">Incidents</a>
+            <a class="nav-link active" href="${pageContext.request.contextPath}/chauffeurs">Chauffeurs</a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/vehicules">Vehicules</a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/incidents">Incidents</a>
             <a class="nav-link" href="${pageContext.request.contextPath}/statistiques">Statistiques</a>
         </div>
     </div>
