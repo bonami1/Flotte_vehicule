@@ -67,7 +67,7 @@
 
     </div>
 
-    <%-- Graphiques --%>
+    <%-- Graphiques missions --%>
     <div class="row">
 
         <div class="col-md-6 mb-4">
@@ -89,6 +89,71 @@
         </div>
 
     </div>
+
+    <%-- Section incidents --%>
+    <h4 class="mb-3 mt-2">Incidents &amp; Maintenance</h4>
+
+    <div class="row mb-4">
+
+        <div class="col-md-3 mb-3">
+            <div class="card text-center border-danger">
+                <div class="card-body">
+                    <h3 class="text-danger">${totalIncidents}</h3>
+                    <p class="mb-0">Incidents au total</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card text-center border-secondary">
+                <div class="card-body">
+                    <h3 class="text-secondary">${nbIncidentsNonTraites}</h3>
+                    <p class="mb-0">Non traites</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card text-center border-success">
+                <div class="card-body">
+                    <h3 class="text-success">${nbIncidentsTraites}</h3>
+                    <p class="mb-0">Traites</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card text-center border-warning">
+                <div class="card-body">
+                    <h3 class="text-warning">${coutTotal} EUR</h3>
+                    <p class="mb-0">Cout total estime</p>
+                    <small class="text-muted">Moy. ${coutMoyen} EUR</small>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">Repartition des incidents</div>
+                <div class="card-body">
+                    <canvas id="graphIncidents" style="max-height: 250px;"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">Etat des incidents</div>
+                <div class="card-body">
+                    <canvas id="graphTraites" style="max-height: 250px;"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script>
@@ -117,6 +182,31 @@
             scales: {
                 y: { beginAtZero: true }
             }
+        }
+    });
+
+    new Chart(document.getElementById('graphIncidents'), {
+        type: 'pie',
+        data: {
+            labels: ['Pannes mecaniques', 'Accidents'],
+            datasets: [{
+                data: [
+                    ${statsIncidentsParType['Panne'] != null ? statsIncidentsParType['Panne'] : 0},
+                    ${statsIncidentsParType['Accident'] != null ? statsIncidentsParType['Accident'] : 0}
+                ],
+                backgroundColor: ['#ffc107', '#dc3545']
+            }]
+        }
+    });
+
+    new Chart(document.getElementById('graphTraites'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Non traites', 'Traites'],
+            datasets: [{
+                data: [${nbIncidentsNonTraites}, ${nbIncidentsTraites}],
+                backgroundColor: ['#6c757d', '#198754']
+            }]
         }
     });
 </script>
