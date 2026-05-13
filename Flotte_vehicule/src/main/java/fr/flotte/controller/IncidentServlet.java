@@ -3,6 +3,7 @@ package fr.flotte.controller;
 import fr.flotte.exception.IncidentDejaTraiteException;
 import fr.flotte.model.*;
 import fr.flotte.util.PersistanceUtil;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +17,7 @@ import java.util.List;
 public class IncidentServlet extends HttpServlet {
 
     private GestionnaireMaintenance gestionnaire;
+    private RegistreVehicule<Vehicule> registre;
 
     @Override
     public void init() {
@@ -24,6 +26,7 @@ public class IncidentServlet extends HttpServlet {
             GestionnaireMaintenance.setInstance(charge);
         }
         gestionnaire = GestionnaireMaintenance.getInstance();
+        registre = RegistreVehicule.getInstance();
     }
 
     @Override
@@ -51,6 +54,7 @@ public class IncidentServlet extends HttpServlet {
         }
 
         request.setAttribute("listeIncidents",  listeIncidents);
+        request.setAttribute("listeVehicules",  registre.listerTous());
         request.setAttribute("filtreType",      filtreType);
         request.setAttribute("filtreVehicule",  filtreVehicule);
         request.setAttribute("filtreTraite",    filtreTraite);

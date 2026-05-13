@@ -12,6 +12,7 @@ public abstract class Mission implements Serializable {
     private String statut;
     private Chauffeur chauffeurAssigne;
     private LocalDate dateDebut;
+    private String vehiculeId;
 
     public Mission(String itineraire) {
         this.id = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
@@ -31,4 +32,6 @@ public abstract class Mission implements Serializable {
     public Chauffeur getChauffeurAssigne() { return chauffeurAssigne; }
     public void setChauffeurAssigne(Chauffeur chauffeur) { this.chauffeurAssigne = chauffeur; }
     public LocalDate getDateDebut() { return dateDebut; }
+    public String getVehiculeId() { return vehiculeId; }
+    public void setVehiculeId(String vehiculeId) { this.vehiculeId = vehiculeId; }
 }

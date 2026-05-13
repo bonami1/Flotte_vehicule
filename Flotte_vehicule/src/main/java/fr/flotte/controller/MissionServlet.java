@@ -3,6 +3,7 @@ package fr.flotte.controller;
 import fr.flotte.exception.ChauffeurIndisponibleException;
 import fr.flotte.exception.MissionDejaTermineeException;
 import fr.flotte.model.*;
+import fr.flotte.model.EtatVehicule;
 import fr.flotte.util.PersistanceUtil;
 
 import javax.servlet.ServletException;
@@ -18,10 +19,12 @@ import java.util.stream.Collectors;
 public class MissionServlet extends HttpServlet {
 
     private GestionnaireOperationnel<Mission> gestionnaire;
+    private RegistreVehicule<Vehicule> registre;
 
     @Override
     public void init() {
         gestionnaire = GestionnaireOperationnel.getInstance();
+        registre = RegistreVehicule.getInstance();
     }
 
     @Override
@@ -39,8 +42,12 @@ public class MissionServlet extends HttpServlet {
             List<Chauffeur> chauffeursDisponibles = gestionnaire.getListeChauffeurs().stream()
                     .filter(Chauffeur::estDisponible)
                     .collect(Collectors.toList());
+            List<Vehicule> vehiculesDisponibles = registre.listerTous().stream()
+                    .filter(Vehicule::estDisponible)
+                    .collect(Collectors.toList());
             request.setAttribute("mission", mission);
             request.setAttribute("chauffeursDisponibles", chauffeursDisponibles);
+            request.setAttribute("vehiculesDisponibles", vehiculesDisponibles);
             transferFlash(request);
             request.getRequestDispatcher("/detail-mission.jsp").forward(request, response);
             return;
@@ -92,6 +99,11 @@ public class MissionServlet extends HttpServlet {
                 PersistanceUtil.sauvegarder(gestionnaire);
                 setFlash(request, "Mission supprimee.", "warning");
             } else if ("terminer".equals(action)) {
+                Mission m = gestionnaire.trouverMission(id).orElse(null);
+                if (m != null && m.getVehiculeId() != null) {
+                    registre.trouverParImmatriculation(m.getVehiculeId())
+                            .ifPresent(v -> v.setEtat(EtatVehicule.DISPONIBLE));
+                }
                 gestionnaire.terminerMission(id);
                 PersistanceUtil.sauvegarder(gestionnaire);
                 setFlash(request, "Mission terminee avec succes.", "success");
@@ -99,6 +111,20 @@ public class MissionServlet extends HttpServlet {
                 gestionnaire.affecterChauffeur(id, request.getParameter("chauffeurId"));
                 PersistanceUtil.sauvegarder(gestionnaire);
                 setFlash(request, "Chauffeur affecte avec succes.", "success");
+            } else if ("affecterVehicule".equals(action)) {
+                String immat = request.getParameter("vehiculeImmat");
+                Mission m = gestionnaire.trouverMission(id).orElse(null);
+                if (m != null && immat != null && !immat.isEmpty()) {
+                    if (m.getVehiculeId() != null) {
+                        registre.trouverParImmatriculation(m.getVehiculeId())
+                                .ifPresent(v -> v.setEtat(EtatVehicule.DISPONIBLE));
+                    }
+                    m.setVehiculeId(immat);
+                    registre.trouverParImmatriculation(immat)
+                            .ifPresent(v -> v.setEtat(EtatVehicule.UTILISE));
+                    PersistanceUtil.sauvegarder(gestionnaire);
+                    setFlash(request, "Vehicule affecte avec succes.", "success");
+                }
             }
         } catch (MissionDejaTermineeException | ChauffeurIndisponibleException e) {
             setFlash(request, e.getMessage(), "danger");

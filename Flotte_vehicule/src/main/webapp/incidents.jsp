@@ -16,6 +16,7 @@
             <a class="nav-link" href="${pageContext.request.contextPath}/home">Accueil</a>
             <a class="nav-link" href="${pageContext.request.contextPath}/missions">Missions</a>
             <a class="nav-link" href="${pageContext.request.contextPath}/chauffeurs">Chauffeurs</a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/vehicules">Véhicules</a>
             <a class="nav-link active" href="${pageContext.request.contextPath}/incidents">Incidents</a>
             <a class="nav-link" href="${pageContext.request.contextPath}/statistiques">Statistiques</a>
         </div>
@@ -53,9 +54,16 @@
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label fw-semibold">Vehicule ID</label>
-                    <input type="text" name="filtreVehicule" class="form-control"
-                           placeholder="Ex: VEH-001" value="${filtreVehicule}">
+                    <label class="form-label fw-semibold">Véhicule</label>
+                    <select name="filtreVehicule" class="form-select">
+                        <option value="">Tous</option>
+                        <c:forEach var="v" items="${listeVehicules}">
+                            <option value="${v.immatriculation}"
+                                ${filtreVehicule eq v.immatriculation ? 'selected' : ''}>
+                                ${v.immatriculation} — ${v.marque} ${v.modele}
+                            </option>
+                        </c:forEach>
+                    </select>
                 </div>
                 <div class="col-md-2">
                     <label class="form-label fw-semibold">Trier par</label>
@@ -111,9 +119,15 @@
                                placeholder="0.00" min="0" step="0.01" required>
                     </div>
                     <div class="col-md-2">
-                        <label class="form-label">Vehicule ID</label>
-                        <input type="text" name="vehiculeId" class="form-control"
-                               placeholder="Ex: VEH-001">
+                        <label class="form-label">Véhicule</label>
+                        <select name="vehiculeId" class="form-select">
+                            <option value="">-- Aucun --</option>
+                            <c:forEach var="v" items="${listeVehicules}">
+                                <option value="${v.immatriculation}">
+                                    ${v.immatriculation} — ${v.marque} ${v.modele}
+                                </option>
+                            </c:forEach>
+                        </select>
                     </div>
                     <div class="col-md-2" id="champPanne">
                         <label class="form-label">Type de panne</label>

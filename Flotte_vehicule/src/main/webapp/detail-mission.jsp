@@ -15,6 +15,8 @@
             <a class="nav-link" href="${pageContext.request.contextPath}/home">Accueil</a>
             <a class="nav-link" href="${pageContext.request.contextPath}/missions">Missions</a>
             <a class="nav-link" href="${pageContext.request.contextPath}/chauffeurs">Chauffeurs</a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/vehicules">Véhicules</a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/incidents">Incidents</a>
             <a class="nav-link" href="${pageContext.request.contextPath}/statistiques">Statistiques</a>
         </div>
     </div>
@@ -77,6 +79,17 @@
                                 </c:choose>
                             </td>
                         </tr>
+                        <tr>
+                            <th>Véhicule</th>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${not empty mission.vehiculeId}">
+                                        <span class="badge bg-info text-dark">${mission.vehiculeId}</span>
+                                    </c:when>
+                                    <c:otherwise><span class="text-muted">Non assigne</span></c:otherwise>
+                                </c:choose>
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>
@@ -116,6 +129,36 @@
                             </c:when>
                             <c:otherwise>
                                 <p class="text-muted mb-0">Aucun chauffeur disponible pour le moment.</p>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </div>
+
+                <%-- Affecter un véhicule --%>
+                <div class="card mb-3">
+                    <div class="card-header bg-info text-dark">Affecter un véhicule</div>
+                    <div class="card-body">
+                        <c:choose>
+                            <c:when test="${not empty vehiculesDisponibles}">
+                                <form method="post" action="${pageContext.request.contextPath}/missions">
+                                    <input type="hidden" name="action" value="affecterVehicule">
+                                    <input type="hidden" name="id" value="${mission.id}">
+                                    <div class="mb-3">
+                                        <select name="vehiculeImmat" class="form-select" required>
+                                            <option value="">-- Choisir un véhicule --</option>
+                                            <c:forEach var="v" items="${vehiculesDisponibles}">
+                                                <option value="${v.immatriculation}"
+                                                    ${mission.vehiculeId eq v.immatriculation ? 'selected' : ''}>
+                                                    ${v.immatriculation} — ${v.marque} ${v.modele}
+                                                </option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-info w-100">Affecter</button>
+                                </form>
+                            </c:when>
+                            <c:otherwise>
+                                <p class="text-muted mb-0">Aucun véhicule disponible pour le moment.</p>
                             </c:otherwise>
                         </c:choose>
                     </div>
